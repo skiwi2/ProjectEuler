@@ -11,7 +11,7 @@
 ;TODO convert project to Leiningen and use clojure.math.combinatorics/cartesian-product via :require
 (defn largest-palindrome-product []
   (->> (for [x (three-digit-numbers) y (three-digit-numbers)] [x y])
-       (map #(* (first %) (last %)))
+       (map (fn [[x y]] (* x y)))
        (filter palindrome?)
        (apply max)))
 
