@@ -1,4 +1,5 @@
-(ns project-euler.problems.problem4)
+(ns project-euler.problems.problem4
+  (:require [clojure.math.combinatorics :as combinatorics]))
 
 (defn three-digit-numbers []
   (range 100 999))
@@ -8,9 +9,8 @@
   (let [s (str n)]
     (= s (clojure.string/reverse s))))
 
-;TODO convert project to Leiningen and use clojure.math.combinatorics/cartesian-product via :require
 (defn largest-palindrome-product []
-  (->> (for [x (three-digit-numbers) y (three-digit-numbers)] [x y])
+  (->> (combinatorics/cartesian-product (three-digit-numbers) (three-digit-numbers))
        (map (fn [[x y]] (* x y)))
        (filter palindrome?)
        (apply max)))
