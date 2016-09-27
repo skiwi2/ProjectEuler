@@ -1,5 +1,5 @@
-(ns problems.problem3
-  (:require shared))
+(ns project-euler.problems.problem3
+  (:require [project-euler.shared :as shared]))
 
 (defn largest-prime-factor [n]
   (apply max (shared/prime-factors n)))

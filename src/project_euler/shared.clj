@@ -1,4 +1,4 @@
-(ns shared)
+(ns project-euler.shared)
 
 (defn fib-seq []
   ((fn fib-seq-gen [a b]

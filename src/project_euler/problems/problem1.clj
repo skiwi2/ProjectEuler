@@ -1,4 +1,4 @@
-(ns problems.problem1)
+(ns project-euler.problems.problem1)
 
 (defn divisible-by?
   [x divisor]

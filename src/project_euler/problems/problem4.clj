@@ -1,4 +1,4 @@
-(ns problems.problem4)
+(ns project-euler.problems.problem4)
 
 (defn three-digit-numbers []
   (range 100 999))

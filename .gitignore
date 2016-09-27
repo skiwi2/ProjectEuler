@@ -1,2 +1,5 @@
 .idea/
-ProjectEuler.iml
+target/
+classes/
+project-euler.iml
+.nrepl-port
