@@ -22,3 +22,7 @@
       s
       (recur (/ n (first-prime-factor n))
              (conj s (first-prime-factor n))))))
+
+(defn log [b n]
+  {:pre [(number? b) (number? n)]}
+  (/ (Math/log10 n) (Math/log10 b)))
