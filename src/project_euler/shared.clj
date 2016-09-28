@@ -1,4 +1,5 @@
-(ns project-euler.shared)
+(ns project-euler.shared
+  (:require [clojure.math.numeric-tower :as math]))
 
 (defn fib-seq []
   ((fn fib-seq-gen [a b]
@@ -26,3 +27,7 @@
 (defn log [b n]
   {:pre [(number? b) (number? n)]}
   (/ (Math/log10 n) (Math/log10 b)))
+
+(defn square [n]
+  {:pre [(number? n)]}
+  (math/expt n 2))
