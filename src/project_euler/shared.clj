@@ -31,3 +31,14 @@
 (defn square [n]
   {:pre [(number? n)]}
   (math/expt n 2))
+
+(defn prime-seq-sieve [n]
+  {:pre [(>= n 2)]}
+  (let [nsqrt (math/sqrt n)]
+    (loop [s (range 2 (inc n))
+           p 2]
+      (if (> p nsqrt)
+        s
+        (recur (concat (filter #(<= % p) s)
+                       (filter #(and (> % p) (not= 0 (mod % p))) s))
+               (first (filter #(> % p) s)))))))
