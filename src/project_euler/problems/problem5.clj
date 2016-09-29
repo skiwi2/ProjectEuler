@@ -4,7 +4,7 @@
 
 (defn smallest-multiple [maximum]
   {:pre [(number? maximum)]}
-  (->> (take-while #(<= % maximum) (shared/prime-seq))
+  (->> (take-while #(<= % maximum) (shared/prime-seq-trial-lazy))
        (map #(int (math/expt % (math/floor (shared/log % maximum)))))
        (reduce *)))
 

@@ -6,7 +6,7 @@
      (cons a (lazy-seq (fib-seq-gen b (+ a b)))))
     0 1))
 
-(defn prime-seq []
+(defn prime-seq-trial-lazy []
   ((fn prime-seq-gen [s]
     (cons (first s)
           (lazy-seq (prime-seq-gen (filter #(not= 0 (mod % (first s))) (rest s))))))
@@ -14,7 +14,7 @@
 
 (defn first-prime-factor [n]
   {:pre [(>= n 2)]}
-  (first (filter #(= 0 (mod n %)) (prime-seq))))
+  (first (filter #(= 0 (mod n %)) (prime-seq-trial-lazy))))
 
 (defn prime-factors [n]
   {:pre [(>= n 2)]}

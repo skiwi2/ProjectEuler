@@ -3,6 +3,6 @@
 
 (defn nth-prime-number [n]
   {:pre [(number? n)]}
-  (nth (shared/prime-seq) (dec n)))
+  (nth (shared/prime-seq-trial-lazy) (dec n)))
 
 (println (nth-prime-number 10001))
