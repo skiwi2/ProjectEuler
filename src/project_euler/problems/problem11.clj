@@ -11,16 +11,18 @@
          (map (comp read-string #(str "10r" %)))
          vec)))
 
-(defn- grid-index [size n]
-  (list (- n (* size (int (math/floor (/ n size)))))
-        (int (math/floor (/ n size)))))
+(defrecord coordinate [x y])
 
-(defn- mirror-horizontal [size index]
-  (list (- (dec size) (first index))
-        (last index)))
+(defn- to-coordinate [size n]
+  (coordinate. (- n (* size (int (math/floor (/ n size)))))
+               (int (math/floor (/ n size)))))
 
-(defn- to-full-index [size index]
-  (+ (* size (last index)) (first index)))
+(defn- mirror-horizontal [size coord]
+  (coordinate. (- (dec size) (:x coord))
+               (:y coord)))
+
+(defn- to-index [size coord]
+  (+ (* size (:y coord)) (:x coord)))
 
 (defn- incrementing-by? [n s]
   (apply = n (map - (rest s) s)))
@@ -30,25 +32,25 @@
        (group-by #(mod % (inc size)))
        vals
        (mapcat (partial partition n 1))
-       (filter #(incrementing-by? 1 (map (comp first (partial grid-index size)) %)))))
+       (filter #(incrementing-by? 1 (map (comp :x (partial to-coordinate size)) %)))))
 
 (defn- anti-diagonal-indices-in-grid [size total n]
   (->> (range 0 total)
        (group-by #(mod % (inc size)))
        vals
-       (map (partial map #(to-full-index size (mirror-horizontal size (grid-index size %)))))
+       (map (partial map #(to-index size (mirror-horizontal size (to-coordinate size %)))))
        (mapcat (partial partition n 1))
-       (filter #(incrementing-by? -1 (map (comp first (partial grid-index size)) %)))))
+       (filter #(incrementing-by? -1 (map (comp :x (partial to-coordinate size)) %)))))
 
 (defn- horizontal-indices-in-grid [size total n]
   (->> (range 0 total)
-       (group-by #(last (grid-index size %)))
+       (group-by #(:y (to-coordinate size %)))
        vals
        (mapcat (partial partition n 1))))
 
 (defn- vertical-indices-in-grid [size total n]
   (->> (range 0 total)
-       (group-by #(first (grid-index size %)))
+       (group-by #(:x (to-coordinate size %)))
        vals
        (mapcat (partial partition n 1))))
 
