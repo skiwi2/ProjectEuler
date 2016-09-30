@@ -1,6 +1,6 @@
 (ns project-euler.problems.problem1)
 
-(defn divisible-by?
+(defn- divisible-by?
   [x divisor]
   (zero? (mod x divisor)))
 
@@ -11,4 +11,4 @@
                  #(divisible-by? % 5)))
        (reduce +)))
 
-  (print (multiples-of-3-and-5))
+(print (multiples-of-3-and-5))

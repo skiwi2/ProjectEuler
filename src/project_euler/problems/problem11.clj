@@ -3,7 +3,7 @@
             [clojure.string :as str]
             [clojure.math.numeric-tower :as math]))
 
-(defn read-grid []
+(defn- read-grid []
   (with-open [rdr (io/reader (io/resource "problem11.txt"))]
     (->> (line-seq rdr)
          (str/join " ")
@@ -11,28 +11,28 @@
          (map (comp read-string #(str "10r" %)))
          vec)))
 
-(defn grid-index [size n]
+(defn- grid-index [size n]
   (list (- n (* size (int (math/floor (/ n size)))))
         (int (math/floor (/ n size)))))
 
-(defn mirror-horizontal [size index]
+(defn- mirror-horizontal [size index]
   (list (- (dec size) (first index))
         (last index)))
 
-(defn to-full-index [size index]
+(defn- to-full-index [size index]
   (+ (* size (last index)) (first index)))
 
-(defn incrementing-by? [n s]
+(defn- incrementing-by? [n s]
   (apply = n (map - (rest s) s)))
 
-(defn diagonal-indices-in-grid [size total n]
+(defn- diagonal-indices-in-grid [size total n]
   (->> (range 0 total)
        (group-by #(mod % (inc size)))
        vals
        (mapcat (partial partition n 1))
        (filter #(incrementing-by? 1 (map (comp first (partial grid-index size)) %)))))
 
-(defn anti-diagonal-indices-in-grid [size total n]
+(defn- anti-diagonal-indices-in-grid [size total n]
   (->> (range 0 total)
        (group-by #(mod % (inc size)))
        vals
@@ -40,13 +40,13 @@
        (mapcat (partial partition n 1))
        (filter #(incrementing-by? -1 (map (comp first (partial grid-index size)) %)))))
 
-(defn horizontal-indices-in-grid [size total n]
+(defn- horizontal-indices-in-grid [size total n]
   (->> (range 0 total)
        (group-by #(last (grid-index size %)))
        vals
        (mapcat (partial partition n 1))))
 
-(defn vertical-indices-in-grid [size total n]
+(defn- vertical-indices-in-grid [size total n]
   (->> (range 0 total)
        (group-by #(first (grid-index size %)))
        vals

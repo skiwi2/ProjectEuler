@@ -1,7 +1,7 @@
 (ns project-euler.problems.problem8
   (:require [clojure.java.io :as io]))
 
-(defn read-1000-digit-number []
+(defn- read-1000-digit-number []
   (with-open [rdr (io/reader (io/resource "problem8.txt"))]
     (apply str (line-seq rdr))))
 
