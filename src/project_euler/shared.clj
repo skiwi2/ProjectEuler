@@ -1,5 +1,6 @@
 (ns project-euler.shared
-  (:require [clojure.math.numeric-tower :as math]))
+  (:require [clojure.math.numeric-tower :as math]
+            [clojure.math.combinatorics :as combinatorics]))
 
 (defn fib-seq []
   ((fn fib-seq-gen [a b]
@@ -42,3 +43,13 @@
         (recur (concat (filter #(<= % p) s)
                        (filter #(and (> % p) (not= 0 (mod % p))) s))
                (first (filter #(> % p) s)))))))
+
+(defn triangle-numbers []
+  ((fn triangle-numbers-gen [sum n]
+     (cons sum (lazy-seq (triangle-numbers-gen (+ sum n) (inc n)))))
+    1 2))
+
+(defn divisors [n]
+  {:pre [(pos? n)]}
+  (into #{} (map (partial reduce *)
+                 (combinatorics/subsets (prime-factors n)))))
